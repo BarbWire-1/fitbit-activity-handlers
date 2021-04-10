@@ -1,5 +1,7 @@
 import { goals, today } from 'user-activity'
 
+// This file is based on code written by BarbWire-1: https://github.com/BarbWire-1
+
 const baseHandler = activityName => {
   // Virtual base class for all activity handlers. It should not be instantiated directly.
   // The returned object contains properties common to ALL activity types.
@@ -8,8 +10,8 @@ const baseHandler = activityName => {
 
   Object.defineProperty(obj, 'stats', {
     get: function() {
-      const myAdjusted = obj.adjusted
-      const myGoal = obj.goal
+      const myAdjusted = obj.adjusted   // calls property in sub-classed object
+      const myGoal = obj.goal           // calls property in sub-classed object
       let myProgress = myAdjusted / myGoal
       if (myProgress > 1) myProgress = 1
       return {adjusted:myAdjusted, goal:myGoal, progress:myProgress}
@@ -23,11 +25,7 @@ export const standardHandler = activityName => {
   // Returns a subclassed object using baseHandler as the base, with over-ridden properties to access the API for 'standard' types such as calories.
   const obj = baseHandler()   // create a base-class object
 
-  Object.defineProperty(obj, 'goal', {  // TODO get goal on instantiation and save it
-    get: function() {
-      return goals[activityName]
-    }
-  })
+  obj.goal = goals[activityName]  // we could make this read-only
 
   Object.defineProperty(obj, 'adjusted', {
     get: function() {
@@ -42,11 +40,7 @@ export const azmHandler = () => {
   // Returns a subclassed object using handler as the base, with over-ridden properties to implement AZM's idiosyncracies.
   const obj = baseHandler()   // create a base-class object
 
-  Object.defineProperty(obj, 'goal', {
-    get: function() {
-      return goals['activeZoneMinutes'].total
-    }
-  })
+  obj.goal = goals['activeZoneMinutes'].total  // we could make this read-only
 
   Object.defineProperty(obj, 'adjusted', {
     get: function() {
@@ -58,3 +52,4 @@ export const azmHandler = () => {
 }
 
 // TODO 3 provide each instance with a <text> el
+// TODO 3 stepsThisHour
