@@ -1,5 +1,5 @@
 import clock from 'clock';
-import { standardHandler, azmHandler, hourlyStepsHandler } from './handlers'
+import { standardHandler, azmHandler, hourlyStepsHandler } from './handlers.js'
 
 let handlers;
 
