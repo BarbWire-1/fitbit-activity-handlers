@@ -1,5 +1,4 @@
 import clock from 'clock'
-import document from 'document'
 import { standardHandler, azmHandler, hourlyStepsHandler } from './handlers'
 
 const handlers
@@ -7,7 +6,6 @@ const handlers
 //********************************************************************************************* Start-up *****
 
 ;(function() {       //initialisation IIFE
-  console.log(`before ${typeof azmHandler()}`)
   const myEnergyHandler = standardHandler('calories')
   const myStepsHandler = standardHandler('steps')
   const myDistHandler = standardHandler('distance')
@@ -26,5 +24,6 @@ function onTick(now) {
 
   handlers.forEach(handler => {
     console.log(`${handler.stats.adjusted} ${handler.stats.goal} ${handler.stats.progress}`)
+    handler.update()
   })
 }
