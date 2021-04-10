@@ -8,5 +8,5 @@
 		"**/*.ts",
 		"**/*.js",
 		"../node_modules/fitbit-sdk-types/types/device"
-, "handlers.js", "index.ts.txt"	]
+, "handlers.ts", "index.ts.txt", "index.js.txt"	]
 }

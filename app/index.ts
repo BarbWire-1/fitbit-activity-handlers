@@ -1,0 +1,29 @@
+import clock from 'clock';
+import { standardHandler, azmHandler, hourlyStepsHandler } from './handlers.js'
+
+let handlers;
+
+//********************************************************************************************* Start-up *****
+
+;(function() {       //initialisation IIFE
+  const myEnergyHandler = standardHandler('calories');
+  const myStepsHandler = standardHandler('steps');
+  const myDistHandler = standardHandler('distance');
+  const myFloorsHandler = standardHandler('elevationGain');
+  const myAzmHandler = azmHandler();
+  const myHourlyStepsHandler = hourlyStepsHandler();
+  handlers = [myEnergyHandler, myStepsHandler, myDistHandler, myFloorsHandler, myAzmHandler, myHourlyStepsHandler]
+
+  clock.granularity = 'minutes'
+  clock.ontick =  e => onTick(e.date)
+})()
+
+//********************************************************************************************** Running *****
+
+function onTick(now) {
+
+  handlers.forEach(handler => {
+    //console.log(`${handler.stats.adjusted} ${handler.stats.goal} ${handler.stats.progress}`)
+    handler.update()
+  })
+}
