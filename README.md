@@ -1,3 +1,6 @@
+Fitbit Activity Handlers
+=
+
 This is an experiment in using the equivalent of sub-classing with inheritance in JavaScript to handle the API differences between activity types in Fitbit OS(!).
 
 Structure
