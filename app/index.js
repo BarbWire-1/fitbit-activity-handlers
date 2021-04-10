@@ -23,7 +23,7 @@ const handlers
 function onTick(now) {
 
   handlers.forEach(handler => {
-    console.log(`${handler.stats.adjusted} ${handler.stats.goal} ${handler.stats.progress}`)
+    //console.log(`${handler.stats.adjusted} ${handler.stats.goal} ${handler.stats.progress}`)
     handler.update()
   })
 }
