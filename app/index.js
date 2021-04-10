@@ -1,6 +1,6 @@
 import clock from 'clock'
 import document from 'document'
-import { standardHandler, azmHandler } from './handlers'
+import { standardHandler, azmHandler, hourlyStepsHandler } from './handlers'
 
 const handlers
 
@@ -8,13 +8,13 @@ const handlers
 
 ;(function() {       //initialisation IIFE
   console.log(`before ${typeof azmHandler()}`)
-  const timeHandler = azmHandler()
-console.log(`after ${timeHandler}`)
-  const energyHandler = standardHandler('calories')
-  const stepsHandler = standardHandler('steps')
-  const distHandler = standardHandler('distance')
-  const floorsHandler = standardHandler('elevationGain')
-  handlers = [energyHandler, stepsHandler, distHandler, floorsHandler, timeHandler]
+  const myEnergyHandler = standardHandler('calories')
+  const myStepsHandler = standardHandler('steps')
+  const myDistHandler = standardHandler('distance')
+  const myFloorsHandler = standardHandler('elevationGain')
+  const myAzmHandler = azmHandler()
+  const myHourlyStepsHandler = hourlyStepsHandler()
+  handlers = [myEnergyHandler, myStepsHandler, myDistHandler, myFloorsHandler, myAzmHandler, myHourlyStepsHandler]
 
   clock.granularity = 'seconds'
   clock.ontick =  e => onTick(e.date)

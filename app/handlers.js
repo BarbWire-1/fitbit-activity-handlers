@@ -37,7 +37,7 @@ export const standardHandler = activityName => {
 }
 
 export const azmHandler = () => {
-  // Returns a subclassed object using handler as the base, with over-ridden properties to implement AZM's idiosyncracies.
+  // Returns a subclassed object using baseHandler as the base, with over-ridden properties to implement AZM's idiosyncracies.
   const obj = baseHandler()   // create a base-class object
 
   obj.goal = goals['activeZoneMinutes'].total  // we could make this read-only
@@ -51,5 +51,19 @@ export const azmHandler = () => {
   return obj
 }
 
+export const hourlyStepsHandler = () => {
+  // Returns a subclassed object using baseHandler as the base, with over-ridden properties to implement stepsThisHour idiosyncracies.
+  const obj = baseHandler()   // create a base-class object
+
+  obj.goal = 250  // we could make this read-only
+
+  Object.defineProperty(obj, 'adjusted', {
+    get: function() { // stepsThisHour()
+      return 125    // usually not, actually
+    }
+  })
+
+  return obj
+}
+
 // TODO 3 provide each instance with a <text> el
-// TODO 3 stepsThisHour
